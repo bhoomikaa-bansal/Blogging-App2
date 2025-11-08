@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Sign Up</title>
+    <style>
+        /* Premium Dark Theme Styling for Signup Page - Modified to match Signin page */
+        body {
+            background: linear-gradient(135deg, #1a1d20 0%, #121416 100%);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+        
+        .signup-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: rgba(33, 37, 41, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(13, 202, 240, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .signup-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #0dcaf0, rgba(13, 202, 240, 0.5), rgba(13, 202, 240, 0.1));
+        }
+        
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .signup-header h1 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signup-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        
+        .form-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-control {
+            background-color: rgba(30, 34, 38, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-control:focus {
+            background-color: rgba(35, 39, 43, 0.8);
+            border-color: rgba(13, 202, 240, 0.5);
+            box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.2);
+            color: white;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .form-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        .form-check-input {
+            background-color: rgba(30, 34, 38, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-check-input:checked {
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
+        }
+        
+        .form-check-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .btn-signup {
+            background: linear-gradient(to right, #0dcaf0, rgba(13, 202, 240, 0.8));
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-signup::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .btn-signup:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 202, 240, 0.4);
+        }
+        
+        .btn-signup:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .signin-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .signin-link a {
+            color: #0dcaf0;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .signin-link a:hover {
+            text-decoration: none;
+            color: #5ddcf8;
+            text-shadow: 0 0 8px rgba(13, 202, 240, 0.5);
+        }
+        
+        .password-requirements {
+            margin-top: 0.5rem;
+            padding: 0.75rem;
+            background-color: rgba(30, 34, 38, 0.5);
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .password-requirements ul {
+            padding-left: 1.2rem;
+            margin-bottom: 0;
+        }
+        
+        .password-requirements ul li {
+            margin-bottom: 0.25rem;
+        }
+        
+        .terms-checkbox {
+            margin-top: 1.5rem;
+        }
+        
+        .terms-checkbox a {
+            color: #0dcaf0;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .terms-checkbox a:hover {
+            color: #5ddcf8;
+            text-shadow: 0 0 8px rgba(13, 202, 240, 0.5);
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <div class="container">
+        <div class="signup-container">
+            <div class="signup-header">
+                <h1>Create Account</h1>
+                <p>Join our community today</p>
+            </div>
+            
+            <form action="/user/signup" method="post">
+                <div class="mb-4">
+                    <label for="fullName" class="form-label">Full Name</label>
+                    <input type="text" name="fullName" class="form-control" id="fullName" placeholder="John Doe" required>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="exampleInputEmail1" class="form-label">Email Address</label>
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="your@email.com" required>
+                    <div id="emailHelp" class="form-text mt-1">We'll never share your email with anyone else.</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="••••••••" required>
+                    
+                    <div class="password-requirements">
+                        <p class="mb-1">Password must include:</p>
+                        <ul>
+                            <li>At least 8 characters</li>
+                            <li>At least one uppercase letter</li>
+                            <li>At least one number</li>
+                            <li>At least one special character</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="terms-checkbox mb-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                        <label class="form-check-label" for="termsCheck">
+                            I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>
+                        </label>
+                    </div>
+                </div>
+                
+                <button type="submit" class="btn btn-signup">Create Account</button>
+            </form>
+            
+            <div class="divider">or</div>
+            
+            <div class="signin-link">
+                Already have an account? <a href="/user/signin">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/script') %>
+</body>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('./partials/head') %>
+    <title>Signin</title>
+    <style>
+        /* Premium Dark Theme Styling for Signin Page */
+        body {
+            background: linear-gradient(135deg, #1a1d20 0%, #121416 100%);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+        
+        .signin-container {
+            max-width: 500px;
+            margin: 3rem auto;
+            padding: 2.5rem;
+            background: rgba(33, 37, 41, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3), 0 0 20px rgba(13, 202, 240, 0.08);
+            position: relative;
+            overflow: hidden;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        
+        .signin-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(to right, #0dcaf0, rgba(13, 202, 240, 0.5), rgba(13, 202, 240, 0.1));
+        }
+        
+        .signin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .signin-header h1 {
+            color: #ffffff;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .signin-header p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 1rem;
+        }
+        
+        .form-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+            font-size: 1rem;
+            margin-bottom: 0.7rem;
+            letter-spacing: 0.5px;
+        }
+        
+        .form-control {
+            background-color: rgba(30, 34, 38, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.9);
+            border-radius: 8px;
+            padding: 0.8rem 1.2rem;
+            transition: all 0.3s;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .form-control:focus {
+            background-color: rgba(35, 39, 43, 0.8);
+            border-color: rgba(13, 202, 240, 0.5);
+            box-shadow: 0 0 0 3px rgba(13, 202, 240, 0.2);
+            color: white;
+        }
+        
+        .form-control::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+        }
+        
+        .form-text {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+        }
+        
+        .form-check-input {
+            background-color: rgba(30, 34, 38, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .form-check-input:checked {
+            background-color: #0dcaf0;
+            border-color: #0dcaf0;
+        }
+        
+        .form-check-label {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        
+        .btn-signin {
+            background: linear-gradient(to right, #0dcaf0, rgba(13, 202, 240, 0.8));
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 600;
+            transition: all 0.3s;
+            width: 100%;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(13, 202, 240, 0.3);
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-signin::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s;
+        }
+        
+        .btn-signin:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(13, 202, 240, 0.4);
+        }
+        
+        .btn-signin:hover::before {
+            transform: translateX(100%);
+        }
+        
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .divider::before {
+            margin-right: 1rem;
+        }
+        
+        .divider::after {
+            margin-left: 1rem;
+        }
+        
+        .signup-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .signup-link a {
+            color: #0dcaf0;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .signup-link a:hover {
+            text-decoration: none;
+            color: #5ddcf8;
+            text-shadow: 0 0 8px rgba(13, 202, 240, 0.5);
+        }
+        
+        .forgot-password {
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .forgot-password:hover {
+            color: #0dcaf0;
+            text-decoration: none;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <%- include('./partials/nav') %>
+
+    <div class="container">
+        <div class="signin-container">
+            <div class="signin-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to access your account</p>
+            </div>
+            
+            <form action="/user/signin" method="post">
+                <div class="mb-4">
+                    <label for="exampleInputEmail1" class="form-label">Email address</label>
+                    <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="your@email.com">
+                    <div id="emailHelp" class="form-text mt-1">We'll never share your email with anyone else.</div>
+                </div>
+                
+                <div class="mb-4">
+                    <label for="exampleInputPassword1" class="form-label">Password</label>
+                    <input type="password" name="password" class="form-control" id="exampleInputPassword1" placeholder="••••••••">
+                </div>
+                
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-signin">Sign In</button>
+            </form>
+            
+            <div class="divider">or</div>
+            
+            <div class="signup-link">
+                Don't have an account? <a href="/user/signup">Sign up</a>
+            </div>
+        </div>
+    </div>
+
+    <%- include('./partials/script') %>
+</body>
+</html>
