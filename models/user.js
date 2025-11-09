@@ -8,29 +8,29 @@ const { Schema, model } = mongoose;
 const userSchema = new Schema({
     fullName: {
         type: String,
-        required: true, // Full name is required
+        required: true, 
     },
     email: {
         type: String,
-        required: true,  // Email is required
-        unique: true,  // Email must be unique for each user
+        required: true,  
+        unique: true,  
     },
     salt: {    
-        // Using salt, we are going to hash our password using salt and pepper technique
+        required: true,  
         type: String,
     },
     password: {
         type: String,
-        required: true,  // Password is required
+        required: true,  
     },
     publicImageURL: {
         type: String,
-        default: "/images/avatar.png",  // Default avatar if user doesn't upload an image
+        default: "/images/avatar.png",  
     },
     role: {
         type: String,
-        enum: ["USER", "ADMIN"],  // The role can only have two values: USER or ADMIN
-        default: "USER",  // Default role is USER
+        enum: ["USER", "ADMIN"],  
+        default: "USER",  
     },
 });
 
